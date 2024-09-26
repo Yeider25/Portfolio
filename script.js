@@ -57,7 +57,7 @@ function sendMessage() {
         const subject = document.getElementById('subject').value;
         const message = document.getElementById('message').value;
 
-        fetch('http://localhost/send-message', { // Cambia el puerto y agrega /send-message
+        fetch('http://localhost:8080/send-message', { // Cambia el puerto y agrega /send-message
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
