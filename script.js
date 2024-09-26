@@ -50,30 +50,29 @@ function descargarCV() {
 }
 
 function sendMessage() {
-    function sendMessage() {
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-        const email = document.getElementById('email').value;
-        const subject = document.getElementById('subject').value;
-        const message = document.getElementById('message').value;
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
 
-        fetch('http://localhost:8080/send-message', { // Cambia el puerto y agrega /send-message
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ name, phone, email, subject, message })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message) {
-                    alert('Mensaje enviado con éxito');
-                } else if (data.error) {
-                    alert('Error: ' + data.error); // Agregué un mensaje de error
-                }
-            })
-            .catch(error => {
-                console.error('Error al enviar el mensaje:', error);
-                alert('Error al enviar el mensaje: ' + error.message); // Mensaje de error para el usuario
-            });
-    }
+    fetch('http://localhost:8080/send-message', { // Cambia el puerto y agrega /send-message
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, phone, email, subject, message })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert('Mensaje enviado con éxito');
+            } else if (data.error) {
+                alert('Error: ' + data.error); // Mensaje de error si existe
+            }
+        })
+        .catch(error => {
+            console.error('Error al enviar el mensaje:', error);
+            alert('Error al enviar el mensaje: ' + error.message); // Mensaje de error para el usuario
+        });
+}
