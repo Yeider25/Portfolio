@@ -56,7 +56,7 @@ function sendMessage() {
     const subject = document.getElementById('subject').value;
     const message = document.getElementById('message').value;
 
-    fetch('http://localhost:5000/', {
+    fetch('http://localhost:8080', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
