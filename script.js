@@ -74,7 +74,8 @@ function sendMessage() {
     };
 
     // Enviar los datos a la API
-    fetch('http://localhost:3000/send-email', { // URL de tu API
+    // Reemplaza con la URL de tu API pública en Railway
+    fetch('https://contacto-production.up.railway.app/send-email', {
             method: 'POST', // Método POST
             headers: {
                 'Content-Type': 'application/json',
@@ -104,4 +105,5 @@ function sendMessage() {
             console.error('Error al enviar el mensaje:', error);
             alert('Hubo un problema con el envío, intenta nuevamente.');
         });
+
 }
