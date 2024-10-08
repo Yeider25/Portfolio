@@ -74,7 +74,7 @@ function sendMessage() {
     };
 
     // Enviar los datos a la API
-    fetch('http://contacto-production.up.railway.app/send-email', { // URL de tu API
+    fetch('http://localhost:8080/send-email', { // URL de tu API
             method: 'POST', // Método POST
             headers: {
                 'Content-Type': 'application/json',
