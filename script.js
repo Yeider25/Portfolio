@@ -49,30 +49,54 @@ function descargarCV() {
     link.click();
 }
 
+
 function sendMessage() {
+    // Obtener los valores de los campos
     const name = document.getElementById('name').value;
     const phone = document.getElementById('phone').value;
     const email = document.getElementById('email').value;
     const subject = document.getElementById('subject').value;
     const message = document.getElementById('message').value;
 
-    fetch('http://localhost:8080/send-message', { // Cambia el puerto y agrega /send-message
+    // Validar que los campos no estén vacíos
+    if (!name || !email || !subject || !message) {
+        alert('Por favor, completa todos los campos.');
+        return;
+    }
+
+    // Preparar el objeto con los datos del formulario
+    const formData = {
+        name,
+        phone,
+        email,
+        subject,
+        message
+    };
+
+    // Enviar los datos a la API
+    fetch('http://localhost:3000/send-email', { // Reemplaza con la URL de tu API
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ name, phone, email, subject, message })
+            body: JSON.stringify(formData),
         })
         .then(response => response.json())
         .then(data => {
-            if (data.message) {
+            if (data.success) {
                 alert('Mensaje enviado con éxito');
-            } else if (data.error) {
-                alert('Error: ' + data.error); // Mensaje de error si existe
+                // Aquí puedes limpiar el formulario si es necesario
+                document.getElementById('name').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('subject').value = '';
+                document.getElementById('message').value = '';
+            } else {
+                alert('Hubo un error al enviar el mensaje, intenta nuevamente.');
             }
         })
         .catch(error => {
             console.error('Error al enviar el mensaje:', error);
-            alert('Error al enviar el mensaje: ' + error.message); // Mensaje de error para el usuario
+            alert('Hubo un problema con el envío, intenta nuevamente.');
         });
 }
