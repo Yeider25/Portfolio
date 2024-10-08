@@ -74,38 +74,29 @@ function sendMessage() {
     };
 
     // Enviar los datos a la API
-    function sendMessage() {
-        const formData = {
-            name: document.getElementById('name').value,
-            phone: document.getElementById('phone').value,
-            email: document.getElementById('email').value,
-            subject: document.getElementById('subject').value,
-            message: document.getElementById('message').value,
-        };
-
-        fetch('http://contacto-production.up.railway.app/send-email', { // Reemplaza con la URL de tu API
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Mensaje enviado con éxito');
-                    // Limpiar el formulario
-                    document.getElementById('name').value = '';
-                    document.getElementById('phone').value = '';
-                    document.getElementById('email').value = '';
-                    document.getElementById('subject').value = '';
-                    document.getElementById('message').value = '';
-                } else {
-                    alert('Hubo un error al enviar el mensaje, intenta nuevamente.');
-                }
-            })
-            .catch(error => {
-                console.error('Error al enviar el mensaje:', error);
-                alert('Hubo un problema con el envío, intenta nuevamente.');
-            });
-    }
+    fetch('http://contacto-production.up.railway.app/send-email', { // Reemplaza con la URL de tu API
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Mensaje enviado con éxito');
+                // Aquí puedes limpiar el formulario si es necesario
+                document.getElementById('name').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('subject').value = '';
+                document.getElementById('message').value = '';
+            } else {
+                alert('Hubo un error al enviar el mensaje, intenta nuevamente.');
+            }
+        })
+        .catch(error => {
+            console.error('Error al enviar el mensaje:', error);
+            alert('Hubo un problema con el envío, intenta nuevamente.');
+        });
+}
