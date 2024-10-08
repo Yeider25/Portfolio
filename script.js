@@ -74,18 +74,23 @@ function sendMessage() {
     };
 
     // Enviar los datos a la API
-    fetch('http://contacto-production.up.railway.app/send-email', { // Reemplaza con la URL de tu API
-            method: 'POST',
+    fetch('http://contacto-production.up.railway.app/send-email', { // URL de tu API
+            method: 'POST', // Método POST
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) { // Verifica si la respuesta no es OK
+                throw new Error('Error en la red o en el servidor'); // Lanzar un error si no es OK
+            }
+            return response.json(); // Convertir la respuesta a JSON
+        })
         .then(data => {
             if (data.success) {
                 alert('Mensaje enviado con éxito');
-                // Aquí puedes limpiar el formulario si es necesario
+                // Limpiar el formulario
                 document.getElementById('name').value = '';
                 document.getElementById('phone').value = '';
                 document.getElementById('email').value = '';
